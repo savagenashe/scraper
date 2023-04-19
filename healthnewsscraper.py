@@ -21,12 +21,15 @@ def scrape_news():
         content = container.find("div", class_="content").text.strip()
         read_more_rel_url = container.find("div", class_="read_more").find("a")["href"]
         read_more_full_url = "https://www.afro.who.int" + read_more_rel_url
+        image_tag = container.find("img")
+        image_url = "https://www.afro.who.int" + image_tag["src"] if image_tag else None
 
         article = {
             "title": title,
             "date": date,
             "content": content,
-            "read_more": read_more_full_url
+            "read_more": read_more_full_url,
+            "image_url":image_url
         }
 
         articles.append(article)
